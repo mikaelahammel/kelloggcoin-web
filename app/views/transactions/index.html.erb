@@ -35,19 +35,28 @@ Balance for Krystina: 3516 KC
 
 <p>Expected balances:</p>
 
-<%
-for user in users
-    expected_balance = 0
-    for transaction in transactions
-        if transaction["from_user_id"] == user["id"]
-            expected_balance = expected_balance - transaction["amount"]
-        end
-        if transaction["to_user_id"] == user["id"] 
-            expected_balance = expected_balance + transaction["amount"]
-        end
-    
-    
-end
-%>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Expected Balance</th>
+    </tr>
+        <% for user in users
+            expected_balance = 0
+            for transaction in transactions
+                if transaction["from_user_id"] == user["id"]
+                    expected_balance = expected_balance - transaction["amount"]
+                end
+                if transaction["to_user_id"] == user["id"] 
+                    expected_balance = expected_balance + transaction["amount"]
+                end
+            end %>
+            <tr>
+                <td><%=user["name"]%></td>
+                <td><%=expected_balance%> KC</td>
+            </tr>
+        <% end %>
+    </tr>
+</table>
 
-<%= expected_balance.inspect %>
+
+
