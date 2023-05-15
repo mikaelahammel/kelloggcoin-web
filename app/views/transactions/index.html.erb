@@ -5,6 +5,7 @@
 <!-- Create the array of transactions -->
 <%
 transactions = Transaction.all 
+users = User.all
 %>
 
 <p>All Transactions:</p>
@@ -31,3 +32,22 @@ Balance for Evan: 1164 KC
 Balance for Anthony: 1456 KC
 Balance for Krystina: 3516 KC 
 -->
+
+<p>Expected balances:</p>
+
+<%
+for user in users
+    expected_balance = 0
+    for transaction in transactions
+        if transaction["from_user_id"] == user["id"]
+            expected_balance = expected_balance - transaction["amount"]
+        end
+        if transaction["to_user_id"] == user["id"] 
+            expected_balance = expected_balance + transaction["amount"]
+        end
+    
+    
+end
+%>
+
+<%= expected_balance.inspect %>
